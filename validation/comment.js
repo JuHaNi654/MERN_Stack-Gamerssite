@@ -11,8 +11,8 @@ const isEmpty = require('./is-Empty')
 module.exports = function validateCommentInput(data) {
     let errors = {}
 
-    data.postId = isEmpty(data.postId) ? data.postId : ''
-    data.comment = isEmpty(data.comment) ? data.comment : ''
+    data.postId = isEmpty(data.postId) ? "" : data.postId
+    data.comment = isEmpty(data.comment) ? "" : data.comment
 
     if (Validator.isEmpty(data.postId)) {
         errors.postId = "Post id field is empty"

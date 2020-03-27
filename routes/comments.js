@@ -10,14 +10,6 @@ const Post = require("../models/Post")
 //
 const validateCommentInput = require("../validation/comment")
 
-
-/**
- * @route       Get api/comments/test
- * @description Test api link
- * @access      Private     
- */
-router.get('/test', passport.authenticate('jwt', { session: false }), (req, res) => { res.json({ msg: "Comments route works" }) })
-
 /**
  * @route       Get api/comments/new-comment
  * @description Create new comment to the post and saves new comment id to the post array

@@ -9,10 +9,10 @@ const isEmpty = require("./is-Empty")
 const validateRegisterInput = (data) => {
     let errors = {}
 
-    data.username = isEmpty(data.username) ? data.username : ''
-    data.email = isEmpty(data.email) ? data.email : ''
-    data.password = isEmpty(data.password) ? data.password : ''
-    data.password2 = isEmpty(data.password2) ? data.password2 : ''
+    data.username = isEmpty(data.username) ? "" : data.username
+    data.email = isEmpty(data.email) ? "" : data.email
+    data.password = isEmpty(data.password) ? "" : data.password
+    data.password2 = isEmpty(data.password2) ? "" : data.password2
 
     if (!Validator.isLength(data.username, { min: 5, max: 20 })) {
         errors.name = "Name length must be between 5 and 20 characters"

@@ -10,13 +10,6 @@ const Post = require("../models/Post")
 const validatePostInput = require("../validation/post")
 
 /**
- * @route       Get api/posts/test
- * @description Test api link
- * @access      Private     
- */
-router.get('/test', passport.authenticate('jwt', { session: false }), (req, res) => { res.json({ msg: "Post route works" }) })
-
-/**
  * @route       Post api/posts/new-post
  * @description Create new post
  * @access      Private     

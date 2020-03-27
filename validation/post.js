@@ -11,9 +11,8 @@ const isEmpty = require('./is-Empty')
 module.exports = function validatePostInput(data) {
     let errors = {}
 
-    data.title = isEmpty(data.title) ? data.title : ''
-    data.title = isEmpty(data.content) ? data.content : ''
-
+    data.title = isEmpty(data.title) ? "" : data.title
+    data.title = isEmpty(data.content) ? "" : data.content
     if (Validator.isEmpty(data.title)) {
         errors.title = "Title is empty"
     }
