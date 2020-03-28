@@ -7,7 +7,6 @@ import {
   useHistory,
 } from 'react-router-dom'
 
-import fakeAuth from './components/Auth/Auth'
 import Login from './components/Login/Login';
 import Authenticate from './components/Auth/Authenticate'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -49,16 +48,14 @@ function App() {
 function AuthButton() {
   let history = useHistory();
 
-  return fakeAuth.isAuthenticated ? (
-    <p>
-      Welcome!{" "}
-      <button onClick={() => {
-        fakeAuth.signout(() => history.push("/login"))
-      }}>Sign out</button>
-    </p>
-  ) : (
-      <p>You are not logged in.</p>
-    )
+  const logout = () => {
+    localStorage.removeItem("jwt")
+    history.push("/login")
+  }
+
+  return (
+    <button onClick={logout}>Logout</button>
+  )
 }
 
 

@@ -71,7 +71,7 @@ router.post('/login', (req, res) => {
     User.findOne({ email: req.body.email })
         .then(user => {
             if (!user) {
-                return res.status(404).json({ error: "Email not found" })
+                return res.status(401).json({ error: "Email not found" })
             } else {
                 bcrypt.compare(req.body.password, user.password)
                     .then(isMatch => {
@@ -88,12 +88,12 @@ router.post('/login', (req, res) => {
                                 (err, token) => {
                                     res.json({
                                         success: true,
-                                        token: 'Bearer ' + token
+                                        token: token
                                     })
                                 }
                             )
                         } else {
-                            return res.status(403).json({ error: "Incorrect password" })
+                            return res.status(401).json({ error: "Incorrect password" })
                         }
                     })
             }
@@ -109,7 +109,6 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
     res.json({
         id: req.user.id,
         name: req.user.userName,
-        email: req.user.email,
         date: req.user.joinedDate
     })
 })

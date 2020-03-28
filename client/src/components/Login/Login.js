@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import fakeAuth from '../Auth/Auth'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import { useHistory } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-
+import axios from 'axios'
 import './login.css'
 
 function Login() {
@@ -14,9 +13,27 @@ function Login() {
 
     const submitForm = (e) => {
         e.preventDefault()
-        fakeAuth.authenticate(() => {
-            history.replace("/")
+        axios.post("http://localhost:8000/api/users/login", {
+            email: email,
+            password: pw
         })
+            .then((response) => {
+                let token = 'Bearer ' + response.data.token
+                localStorage.setItem('jwt', token)
+                history.replace("/")
+            })
+            .catch((err) => {
+                console.log("error: ", err.response)
+
+
+                if (err.response.status === 401 ||
+                    err.response.status === 400) {
+                    // Invalid credentials
+                } else if (err.response.status === 404) {
+                    // Service not awaible
+                }
+            })
+
     }
     return (
         <div className="wrapper">

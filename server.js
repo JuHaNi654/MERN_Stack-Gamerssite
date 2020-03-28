@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const db = require('./config/dbConfig')
-
+const cors = require('cors')
 const app = express()
 
 // Import routes
@@ -12,10 +12,12 @@ const users = require('./routes/users')
 const posts = require('./routes/posts')
 const comments = require('./routes/comments')
 
+
 // Setup middlewares
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(passport.initialize())
+app.use(cors())
 
 // Connect to MongoDB
 mongoose.connect(db.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
