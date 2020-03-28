@@ -5,35 +5,57 @@ import { useHistory } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import './login.css'
+import { validateLoginInput } from '../validation/validation'
 
 function Login() {
     let history = useHistory()
     const [email, setEmail] = useState("")
     const [pw, setPw] = useState("")
+    const [errors, setErrors] = useState(null)
+
 
     const submitForm = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:8000/api/users/login", {
+        const newUser = {
             email: email,
             password: pw
-        })
+        }
+
+        const { errors, isValid } = validateLoginInput(newUser)
+        if (!isValid) {
+            setErrors(errors)
+            return;
+        }
+
+        axios.post("http://localhost:8000/api/users/login", newUser)
             .then((response) => {
                 let token = 'Bearer ' + response.data.token
                 localStorage.setItem('jwt', token)
                 history.replace("/")
             })
             .catch((err) => {
-                console.log("error: ", err.response)
-
-
                 if (err.response.status === 401 ||
                     err.response.status === 400) {
-                    // Invalid credentials
+                    setErrors({ error: "Invalid email or password" })
                 } else if (err.response.status === 404) {
-                    // Service not awaible
+                    setErrors({ error: "Service unavailable :(" })
                 }
             })
 
+    }
+
+    const renderError = () => {
+        if (errors) {
+            let x = []
+            for (let err in errors) {
+                x.push(errors[err])
+            }
+            return (
+                <div className="errorContainer">
+                    {x.map(err => <p className="errorText">{err}</p>)}
+                </div>
+            )
+        }
     }
     return (
         <div className="wrapper">
@@ -65,6 +87,7 @@ function Login() {
                     <Button variant="primary" type="submit" onClick={submitForm}>
                         Log-in
                     </Button>
+                    {renderError()}
                 </Form>
             </Container>
         </div>
