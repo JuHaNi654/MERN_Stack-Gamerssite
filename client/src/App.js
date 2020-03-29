@@ -7,8 +7,10 @@ import {
   useHistory,
 } from 'react-router-dom'
 
-import Login from './components/Login/Login';
-import Authenticate from './components/Auth/Authenticate'
+import Login from './components/login/Login';
+import Signup from './components/signup/Signup'
+
+import Authenticate from './components/auth/Authenticate'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         <Authenticate>
           <AuthButton />
           <ul>

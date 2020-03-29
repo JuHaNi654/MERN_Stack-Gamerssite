@@ -4,8 +4,9 @@ import Form from 'react-bootstrap/Form'
 import { useHistory } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
-import './login.css'
 import { validateLoginInput } from '../validation/validation'
+import InputError from '../error/InputError'
+
 
 function Login() {
     let history = useHistory()
@@ -16,18 +17,18 @@ function Login() {
 
     const submitForm = (e) => {
         e.preventDefault()
-        const newUser = {
+        const user = {
             email: email,
             password: pw
         }
 
-        const { errors, isValid } = validateLoginInput(newUser)
+        const { errors, isValid } = validateLoginInput(user)
         if (!isValid) {
             setErrors(errors)
             return;
         }
 
-        axios.post("http://localhost:8000/api/users/login", newUser)
+        axios.post("http://localhost:8000/api/users/login", user)
             .then((response) => {
                 let token = 'Bearer ' + response.data.token
                 localStorage.setItem('jwt', token)
@@ -46,14 +47,8 @@ function Login() {
 
     const renderError = () => {
         if (errors) {
-            let x = []
-            for (let err in errors) {
-                x.push(errors[err])
-            }
             return (
-                <div className="errorContainer">
-                    {x.map(err => <p className="errorText">{err}</p>)}
-                </div>
+                <InputError errors={errors} />
             )
         }
     }
@@ -84,8 +79,12 @@ function Login() {
                             onChange={(e) => setPw(e.target.value)}
                         />
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={submitForm}>
-                        Log-in
+                    <Button variant="primary" onClick={submitForm}>
+                        Sign in
+                    </Button>
+                    <span className="spanTxt">or</span>
+                    <Button variant="primary" onClick={() => history.replace("/signup")}>
+                        Sign up
                     </Button>
                     {renderError()}
                 </Form>

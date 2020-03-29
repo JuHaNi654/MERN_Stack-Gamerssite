@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formStyle {
+    max-width: 500px;
+    width: auto;
+    margin: auto;
+    padding: 20px;
+}
+
+.errorContainer {
+    margin: 10px 0px;
+}
+
+.errorText {
+    margin: 3px 0px;
+    background-color: red;
+    padding: 5px 5px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.spanTxt {
+    margin: 0px 10px;
+    font-size: 17px;
+    font-weight: 600;
+}
