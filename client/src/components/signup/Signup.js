@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -14,6 +14,7 @@ function Signup() {
     const [username, setUsername] = useState("")
     const [pw, setPw] = useState("")
     const [pw2, setPw2] = useState("")
+
 
     const renderError = () => {
         if (errors) {

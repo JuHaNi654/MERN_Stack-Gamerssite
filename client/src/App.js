@@ -5,7 +5,9 @@ import {
   Route,
   Link,
   useHistory,
+  Redirect
 } from 'react-router-dom'
+import './App.css'
 
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup'
@@ -14,31 +16,47 @@ import Authenticate from './components/auth/Authenticate'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const testi = () => {
+    console.log(testi)
+  }
+
   return (
     <Router>
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Authenticate>
-          <AuthButton />
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">DashBoard</Link>
-            </li>
-            <li>
-              <Link to="/protected">Protected page</Link>
-            </li>
-          </ul>
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/protected" component={ProtectedPage} />
+          <header className="header">
+            <h3 className="logo">GamersSite</h3>
+
+            <nav className="menu">
+              <ul className="nav">
+                <li className="nav-item">
+                  <Link className="nav-item__link" to="/">Home</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-item__link" to="/posts">Post</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-item__link" to="/about">About</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-item__link" to="/profile">Profile</Link>
+                </li>
+                <li className="nav-item">
+                  <AuthButton />
+                </li>
+              </ul>
+            </nav>
+          </header>
+
+          <main className="main">
+            <Route exact path="/" component={Home} />
+            <Route path="/posts" component={Post} />
+            <Route path="/about" component={About} />
+            <Route path="/profile" component={Profile} />
+          </main>
+          <Redirect to="/" />
         </Authenticate>
       </Switch>
     </Router>
@@ -71,6 +89,14 @@ function Home() {
   )
 }
 
+function Post() {
+  return (
+    <div>
+      <h2>Post</h2>
+    </div>
+  )
+}
+
 function About() {
   return (
     <div>
@@ -79,15 +105,7 @@ function About() {
   )
 }
 
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  )
-}
-
-function ProtectedPage() {
+function Profile() {
   return <h3>Protected</h3>;
 }
 
