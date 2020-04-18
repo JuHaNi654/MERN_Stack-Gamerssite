@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import { useHistory } from 'react-router-dom'
@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import { validateLoginInput } from '../validation/validation'
 import InputError from '../error/InputError'
-
+import { config } from '../config/config'
 
 function Login() {
     let history = useHistory()
@@ -27,7 +27,7 @@ function Login() {
             return;
         }
 
-        axios.post("http://localhost:8000/api/users/login", user)
+        axios.post(`${config.backEnd}/api/users/login`, user)
             .then((response) => {
                 let token = 'Bearer ' + response.data.token
                 localStorage.setItem('jwt', token)

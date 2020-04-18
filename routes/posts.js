@@ -42,6 +42,7 @@ router.post('/new-post', passport.authenticate('jwt', { session: false }), (req,
  */
 router.get('/all', passport.authenticate('jwt', { session: false }), (req, res) => {
     Post.find({})
+        .select("-comments -content")
         .populate("user", "userName")
         .then(posts => {
             return res.status(200).json(posts)

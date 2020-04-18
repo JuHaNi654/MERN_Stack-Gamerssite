@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import InputError from '../error/InputError'
 import { validateRegisterInput } from '../validation/validation'
 import axios from 'axios'
-
+import { config } from '../config/config'
 function Signup() {
     let history = useHistory()
     const [errors, setErrors] = useState(null)
@@ -42,7 +42,7 @@ function Signup() {
         }
 
 
-        axios.post("http://localhost:8000/api/users/signup", newUser)
+        axios.post(`${config.backEnd}/api/users/signup`, newUser)
             .then(res => {
                 history.replace("/login")
             })

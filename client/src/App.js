@@ -7,19 +7,16 @@ import {
   useHistory,
   Redirect
 } from 'react-router-dom'
-import './App.css'
+import './App.css';
 
 import Login from './components/login/Login';
-import Signup from './components/signup/Signup'
+import Signup from './components/signup/Signup';
+import Post from './components/posts/Post'
 
-import Authenticate from './components/auth/Authenticate'
+import Authenticate from './components/auth/Authenticate';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const testi = () => {
-    console.log(testi)
-  }
-
   return (
     <Router>
       <Switch>
@@ -38,9 +35,6 @@ function App() {
                   <Link className="nav-item__link" to="/posts">Post</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-item__link" to="/about">About</Link>
-                </li>
-                <li className="nav-item">
                   <Link className="nav-item__link" to="/profile">Profile</Link>
                 </li>
                 <li className="nav-item">
@@ -53,7 +47,6 @@ function App() {
           <main className="main">
             <Route exact path="/" component={Home} />
             <Route path="/posts" component={Post} />
-            <Route path="/about" component={About} />
             <Route path="/profile" component={Profile} />
           </main>
           <Redirect to="/" />
@@ -85,22 +78,6 @@ function Home() {
   return (
     <div>
       <h2>Home</h2>
-    </div>
-  )
-}
-
-function Post() {
-  return (
-    <div>
-      <h2>Post</h2>
-    </div>
-  )
-}
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
     </div>
   )
 }
