@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
 import axios from 'axios'
+import { config } from '../config/config'
+
 
 function Authenticate(props) {
     const [user, setUser] = useState(null)
@@ -13,7 +15,7 @@ function Authenticate(props) {
                 setLoading(false)
                 return
             } else {
-                await axios.get("http://localhost:8000/api/users/profile", {
+                await axios.get(`${config.backEnd}/api/users/profile`, {
                     headers: { Authorization: token }
                 }).then(response => {
                     setUser(response.data)
